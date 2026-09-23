@@ -1,0 +1,19 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: posterum
+      POSTGRES_USER: posterum
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_me}
+    volumes:
+      - posterum_db:/var/lib/postgresql/data
+  web:
+    build: .
+    restart: unless-stopped
+    depends_on: [db]
+    env_file: .env
+    ports:
+      - "127.0.0.1:3000:3000"
+volumes:
+  posterum_db:

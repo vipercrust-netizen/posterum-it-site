@@ -1,3 +1,43 @@
-import Link from "next/link";import {ArrowRight,Boxes,Server,Workflow,CheckCircle2,ShieldCheck,Headphones,Database,Code2} from "lucide-react";import CallbackForm from "@/components/CallbackForm";
-const tasks=["Доработать 1С","1С работает медленно или с ошибками","Обновить 1С","Настроить сервер","Перенести сервер","Файловый сервер","Корпоративный мессенджер","Инфраструктура с нуля"];
-export default function Home(){return <><section className="hero heroVisual"><div className="heroGlow"/><div className="heroCircuit"/><div className="wrap heroGrid"><div className="heroCopy"><div className="eyebrow">НАДЁЖНЫЕ IT-РЕШЕНИЯ ДЛЯ БИЗНЕСА</div><h1>Технологии <em>с взглядом в будущее</em></h1><p className="lead">1С, Windows/Linux-серверы и собственная IT-инфраструктура. От конкретной доработки до комплексного решения.</p><div className="actions"><a className="btn" href="#directions">Наши услуги <ArrowRight size={18}/></a><a className="btn outline" href="#callback">Получить консультацию</a></div><div className="trust"><span><ShieldCheck/>Надёжность<small>Проверенные решения</small></span><span><Database/>Практика<small>Реальные задачи</small></span><span><Headphones/>Поддержка<small>Остаёмся на связи</small></span></div></div><div className="brandScene" aria-hidden="true"><div className="cloudMark">☁</div><div className="capital"><div className="capitalTop"/><div className="capitalBody"><i/><i/><i/><i/><i/></div><div className="capitalBase"/></div><div className="sceneCode">01&nbsp; 1C&nbsp; SQL&nbsp; Linux<br/>Docker&nbsp; Nginx&nbsp; API</div></div></div></section><section className="section directions" id="directions"><div className="wrap"><div className="sectionHead"><div><div className="eyebrow">НАПРАВЛЕНИЯ</div><h2>Закрываем IT-задачи комплексно</h2></div><p>Можно обратиться с одной конкретной проблемой или передать нам целое направление.</p></div><div className="cards visualCards"><Link className="service service1c" href="/1c"><div className="serviceVisual photoVisual photo1c"><strong>1С</strong><span>Бухгалтерия · УТ · ЗУП · УПП</span></div><div className="serviceBody"><Boxes/><h3>1С: внедрение и разработка</h3><p>Установка, обновления, сопровождение, доработка типовых решений, отчёты и обработки.</p><span>Подробнее <ArrowRight/></span></div></Link><Link className="service serviceServers" href="/servers"><div className="serviceVisual servicePhoto serverPhoto"/><div className="serviceBody"><Server/><h3>Windows / Linux серверы</h3><p>Развёртывание, перенос и обслуживание. Базы данных, резервное копирование и мониторинг.</p><span>Подробнее <ArrowRight/></span></div></Link><Link className="service serviceInfra" href="/infrastructure"><div className="serviceVisual servicePhoto infraPhoto"/><div className="serviceBody"><Workflow/><h3>Собственная инфраструктура</h3><p>Файловые серверы, корпоративные мессенджеры, телефония и внутренние сервисы.</p><span>Подробнее <ArrowRight/></span></div></Link></div></div></section><section className="proofBand"><div className="wrap proofGrid"><div><strong>1С</strong><span>Автоматизация и разработка</span></div><div><strong>24/7</strong><span>Инфраструктура под контролем</span></div><div><strong>Linux</strong><span>Серверы и сервисы</span></div><div><strong>Docker</strong><span>Современное развёртывание</span></div></div></section><section className="section alt"><div className="wrap"><div className="eyebrow">С ЧЕМ МОЖЕМ ПОМОЧЬ</div><h2>Выберите вашу задачу</h2><div className="taskgrid">{tasks.map(x=><a href="#callback" key={x}>{x}<ArrowRight/></a>)}</div></div></section><section className="section"><div className="wrap process"><div><div className="eyebrow">КАК РАБОТАЕМ</div><h2>Сначала разбираемся в задаче. Потом предлагаем решение.</h2><p>Не продаём набор технологий ради технологий. Определяем, что мешает бизнесу сейчас, и строим решение с учётом дальнейшей поддержки.</p></div><ol><li><b>01</b><span><strong>Заявка и разговор</strong>Фиксируем задачу и исходную ситуацию.</span></li><li><b>02</b><span><strong>Диагностика</strong>Изучаем систему и предлагаем вариант решения.</span></li><li><b>03</b><span><strong>Реализация</strong>Настраиваем, переносим или разрабатываем.</span></li><li><b>04</b><span><strong>Поддержка</strong>Остаёмся на связи после запуска.</span></li></ol></div></section><section className="cta" id="callback"><div className="wrap ctaGrid"><div><div className="eyebrow light">ЕСТЬ ЗАДАЧА?</div><h2>Расскажите, что нужно сделать</h2><p>Оставьте номер телефона. Обсудим задачу без длинных анкет и навязывания лишних услуг.</p></div><CallbackForm/></div></section></>}
+import Link from "next/link";
+import {ArrowRight,Boxes,Server,Workflow,CheckCircle2} from "lucide-react";
+import CallbackForm from "@/components/CallbackForm";
+
+const tasks=["Доработка и обновление 1С","Ошибки и медленная работа 1С","Настройка Windows / Linux сервера","Перенос сервера или базы","Резервное копирование и мониторинг","Файловый сервер, VPN, внутренние сервисы"];
+
+export default function Home(){
+ return <>
+  <section className="simpleHero">
+   <div className="wrap simpleHeroGrid">
+    <div>
+     <div className="eyebrow">1С · СЕРВЕРЫ · IT-ИНФРАСТРУКТУРА</div>
+     <h1>IT для бизнеса<br/><em>без лишней сложности</em></h1>
+     <p className="lead">Дорабатываем и сопровождаем 1С, настраиваем Windows и Linux серверы, разворачиваем внутренние сервисы компании.</p>
+     <div className="actions"><a className="btn" href="#callback">Обсудить задачу</a><a className="textLink" href="#services">Посмотреть услуги <ArrowRight size={17}/></a></div>
+     <div className="heroFacts"><span><CheckCircle2/> Работаем с существующими системами</span><span><CheckCircle2/> Берём разовые задачи и сопровождение</span></div>
+    </div>
+    <div className="heroPhoto serverPhoto" aria-label="Серверная инфраструктура"/>
+   </div>
+  </section>
+
+  <section className="section simpleServices" id="services"><div className="wrap">
+   <div className="sectionIntro"><div className="eyebrow">УСЛУГИ</div><h2>Три направления. Один подрядчик.</h2><p>Без длинного каталога услуг: выберите направление, а конкретную задачу разберём вместе.</p></div>
+   <div className="simpleCards">
+    <Link href="/1c" className="simpleCard"><div className="cardPhoto photo1c"/><div className="cardText"><Boxes/><h3>1С</h3><p>Обновления, доработки, отчёты, обработки, интеграции и сопровождение.</p><span>Подробнее <ArrowRight/></span></div></Link>
+    <Link href="/servers" className="simpleCard"><div className="cardPhoto serverPhoto"/><div className="cardText"><Server/><h3>Серверы</h3><p>Windows, Linux, PostgreSQL, Docker, переносы, резервные копии и мониторинг.</p><span>Подробнее <ArrowRight/></span></div></Link>
+    <Link href="/infrastructure" className="simpleCard"><div className="cardPhoto infraPhoto"/><div className="cardText"><Workflow/><h3>Инфраструктура</h3><p>Файловые серверы, VPN, корпоративные сервисы, телефония и удалённый доступ.</p><span>Подробнее <ArrowRight/></span></div></Link>
+   </div>
+  </div></section>
+
+  <section className="section problemSection"><div className="wrap problemGrid">
+   <div><div className="eyebrow">МОЖНО ПРОСТО ОПИСАТЬ ПРОБЛЕМУ</div><h2>Не обязательно знать, какая услуга вам нужна</h2><p>Расскажите, что не работает или что хотите изменить. Разберёмся в текущей системе и предложим следующий шаг.</p></div>
+   <div className="problemList">{tasks.map(x=><a href="#callback" key={x}>{x}<ArrowRight/></a>)}</div>
+  </div></section>
+
+  <section className="section howSimple"><div className="wrap">
+   <div className="sectionIntro"><div className="eyebrow">КАК РАБОТАЕМ</div><h2>Понятный процесс</h2></div>
+   <div className="stepsSimple"><div><b>01</b><h3>Обсуждаем</h3><p>Вы описываете задачу и текущую ситуацию.</p></div><div><b>02</b><h3>Разбираемся</h3><p>Смотрим систему, ограничения и объём работ.</p></div><div><b>03</b><h3>Делаем</h3><p>Согласовываем решение и выполняем работу.</p></div></div>
+  </div></section>
+
+  <section className="cta simpleCta" id="callback"><div className="wrap ctaGrid"><div><div className="eyebrow light">СВЯЗАТЬСЯ</div><h2>Есть задача? Давайте обсудим.</h2><p>Оставьте телефон и пару слов о задаче. Этого достаточно для начала.</p></div><CallbackForm/></div></section>
+ </>;
+}

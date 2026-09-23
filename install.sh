@@ -17,6 +17,7 @@ else ADMIN_LOGIN="${ADMIN_LOGIN:-admin}";ADMIN_PASSWORD="${ADMIN_PASSWORD:-}";MA
 printf 'DOMAIN=%s\nLETSENCRYPT_EMAIL=%s\n' "${DOMAIN}" "${LETSENCRYPT_EMAIL}" >"${CONF}";chmod 600 "${CONF}"
 log "Установка системных компонентов";export DEBIAN_FRONTEND=noninteractive;apt4 update -qq;apt4 install -y -qq ca-certificates curl git nginx certbot docker.io docker-compose-plugin openssl || { apt4 install -y -qq ca-certificates curl git nginx certbot docker.io docker-compose openssl; }
 systemctl enable --now docker
+compose(){ if docker compose version >/dev/null 2>&1;then docker compose "$@";else docker-compose "$@";fi; }
 if [[ ! -d "${APP_DIR}/.git" ]];then log "Загрузка Posterum-IT";git clone "${REPO}" "${APP_DIR}";else log "Обновление исходников";git -C "${APP_DIR}" pull --ff-only;fi
 cd "${APP_DIR}"
 if [[ ! -f .env ]];then
@@ -36,7 +37,7 @@ else
  [[ -n "${MAX_BOT_TOKEN}" ]]&&sed -i "s|^MAX_BOT_TOKEN=.*|MAX_BOT_TOKEN=\"${MAX_BOT_TOKEN}\"|" .env
  [[ -n "${MAX_CHAT_ID}" ]]&&sed -i "s|^MAX_CHAT_ID=.*|MAX_CHAT_ID=\"${MAX_CHAT_ID}\"|" .env
 fi
-log "Сборка контейнеров";docker compose up -d --build --remove-orphans
+log "Сборка контейнеров";compose up -d --build --remove-orphans
 install -m0755 "${APP_DIR}/scripts/deploy-posterum.sh" /usr/local/sbin/posterum-update
 install -m0755 "${APP_DIR}/scripts/configure-https.sh" /usr/local/sbin/posterum-it-https
 DOMAIN="${DOMAIN}" LETSENCRYPT_EMAIL="${LETSENCRYPT_EMAIL}" /usr/local/sbin/posterum-it-https "${DOMAIN}" "${LETSENCRYPT_EMAIL}" "${APP_NAME}" "${APP_PORT}"
@@ -61,7 +62,7 @@ WantedBy=timers.target
 EOF
 systemctl daemon-reload;systemctl enable --now posterum-it-certificate.timer
 for _ in $(seq 1 60);do curl -fsS "http://127.0.0.1:${APP_PORT}/" >/dev/null 2>&1&&break;sleep 2;done
-curl -fsS "http://127.0.0.1:${APP_PORT}/" >/dev/null||{ docker compose logs --tail=100 web;fail "сайт не запустился"; }
+curl -fsS "http://127.0.0.1:${APP_PORT}/" >/dev/null||{ compose logs --tail=100 web;fail "сайт не запустился"; }
 IP="$(hostname -I|awk '{print $1}')";URL="http://${IP}";[[ -n "${DOMAIN}" && -s "/etc/letsencrypt/live/${DOMAIN}/fullchain.pem" ]]&&URL="https://${DOMAIN}"
 printf '\n\033[1;32mУстановка завершена.\033[0m\nСайт: %s\nАдминка: %s/admin\n' "${URL}" "${URL}"
 if [[ -n "${ADMIN_PASSWORD:-}" ]];then printf 'Первый вход: %s / %s\n' "${ADMIN_LOGIN}" "${ADMIN_PASSWORD}";fi

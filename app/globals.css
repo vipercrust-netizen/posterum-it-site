@@ -22,3 +22,11 @@
 @media(max-width:600px){.innerHero{padding:55px 0}.innerHero h1{font-size:36px}.innerArt{height:190px}.oneCArt strong{font-size:65px}.rackArt{padding:25px}.rackArt i{height:140px}.networkArt{padding:30px;gap:20px}}
 
 .photo1c{background-image:linear-gradient(90deg,rgba(255,255,255,.96) 0%,rgba(255,255,255,.72) 42%,rgba(255,255,255,.04) 76%),url("/service-1c.webp")!important;background-size:cover!important;background-position:center!important}.photo1c strong,.photo1c span{position:relative;z-index:2}
+
+/* Generated visual assets */
+.servicePhoto,.innerPhoto{background-size:cover!important;background-position:center!important}
+.serverPhoto{background-image:linear-gradient(135deg,rgba(4,18,36,.08),rgba(4,18,36,.25)),url("/service-servers.webp")!important}
+.infraPhoto{background-image:linear-gradient(135deg,rgba(5,24,46,.06),rgba(5,24,46,.22)),url("/service-infrastructure.webp")!important}
+.oneCPhoto{background-image:linear-gradient(135deg,rgba(255,255,255,.02),rgba(7,24,47,.14)),url("/service-1c.webp")!important}
+.innerPhoto{min-height:310px;border:1px solid rgba(255,255,255,.18)}
+@media(max-width:900px){.innerPhoto{min-height:230px}}

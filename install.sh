@@ -15,7 +15,12 @@ if [[ -t 0 ]];then
  read -r -s -p "MAX Bot Token (можно оставить пустым): " MAX_BOT_TOKEN;printf '\n'
 else ADMIN_LOGIN="${ADMIN_LOGIN:-admin}";ADMIN_PASSWORD="${ADMIN_PASSWORD:-}";MAX_CHAT_ID="${MAX_CHAT_ID:-}";MAX_BOT_TOKEN="${MAX_BOT_TOKEN:-}";fi
 printf 'DOMAIN=%s\nLETSENCRYPT_EMAIL=%s\n' "${DOMAIN}" "${LETSENCRYPT_EMAIL}" >"${CONF}";chmod 600 "${CONF}"
-log "Установка системных компонентов";export DEBIAN_FRONTEND=noninteractive;apt4 update -qq;apt4 install -y -qq ca-certificates curl git nginx certbot docker.io docker-compose-plugin openssl || { apt4 install -y -qq ca-certificates curl git nginx certbot docker.io docker-compose openssl; }
+log "Установка системных компонентов";export DEBIAN_FRONTEND=noninteractive;apt4 update -qq;apt4 install -y -qq ca-certificates curl git nginx certbot docker.io openssl
+if apt-cache show docker-compose-plugin >/dev/null 2>&1; then
+  apt4 install -y -qq docker-compose-plugin
+elif apt-cache show docker-compose >/dev/null 2>&1; then
+  apt4 install -y -qq docker-compose
+fi
 systemctl enable --now docker
 compose(){ if docker compose version >/dev/null 2>&1;then docker compose "$@";else docker-compose "$@";fi; }
 if [[ ! -d "${APP_DIR}/.git" ]];then log "Загрузка Posterum-IT";git clone "${REPO}" "${APP_DIR}";else log "Обновление исходников";git -C "${APP_DIR}" pull --ff-only;fi
